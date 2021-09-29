@@ -10,15 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.github.weslleystos.emonitoria.R
 import com.github.weslleystos.emonitoria.shared.animations.PulseEffect
 import com.github.weslleystos.emonitoria.ui.theme.LightBlue
 
-@Preview
 @Composable
-fun SplashScreen() {
+fun SplashScreen(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             PulseEffect(maxScale = 1.1f) {

@@ -77,6 +77,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$viewmodel_compose_version"
     // Integration with observables
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    // Navigation
+    implementation "androidx.navigation:navigation-compose:$navigation_compose_version"
 
     // UI Tests
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$junit_version"
