@@ -1,7 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -14,7 +17,8 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.github.weslleystos.emonitoria.HiltTestRunner"
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -30,15 +34,100 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
-}
 
+    dataBinding {
+        enabled = true
+    }
+
+    sourceSets {
+        test {
+            java.srcDirs += "$projectDir/src/testShared"
+        }
+        androidTest {
+            java.srcDirs += "$projectDir/src/testShared"
+        }
+    }
+}
 dependencies {
+    // Base
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$compat_version"
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
 
+    // Modules
+    implementation project(path: ':domain')
+    // Used by hilt do inject dependencies.
+    implementation project(path: ':data')
+
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    androidTestImplementation project(path: ':data')
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodel_version"
+
+    // Hilt for instrumentation tests
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // Firebase
+    implementation platform("com.google.firebase:firebase-bom:$firebase_version")
+    implementation 'com.google.firebase:firebase-auth-ktx'
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
+    // Tests
+    testImplementation "androidx.arch.core:core-testing:$arch_version"
+    androidTestImplementation "androidx.test:core:$test_version"
+    androidTestImplementation "androidx.arch.core:core-testing:$arch_version"
+
+    // Coroutines Test
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
+
+    // Fragment Test
+    debugImplementation "androidx.fragment:fragment-testing:$test_version"
+
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation "androidx.test:runner:$test_version"
+    androidTestImplementation "androidx.test:rules:$test_version"
+
+    // Assertions
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
+    androidTestImplementation "androidx.test.ext:truth:$test_version"
+
+    // Espresso dependencies
+    androidTestImplementation "androidx.test.espresso:espresso-core:$expresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$expresso_version"
+//    androidTestImplementation "androidx.test.espresso:espresso-intents:$expresso_version"
+//    androidTestImplementation "androidx.test.espresso:espresso-accessibility:$expresso_version"
+//    androidTestImplementation "androidx.test.espresso:espresso-web:$expresso_version"
+//    androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$expresso_version"
+    implementation "androidx.test.espresso:espresso-idling-resource:$expresso_version"
+
+    // Truth
+    testImplementation "com.google.truth:truth:$truth_version"
+    androidTestImplementation "com.google.truth:truth:$truth_version"
+
+    // Mockk
+    testImplementation "io.mockk:mockk:$mockk_version"
+    //testImplementation "io.mockk:mockk-agent-jvm:$mockk_version"
+    androidTestImplementation "io.mockk:mockk-android:$mockk_version"
+    //androidTestImplementation "io.mockk:mockk-agent-jvm:$mockk_version"
+
+    // Turbine
+    testImplementation "app.cash.turbine:turbine:$turbine_version"
+}
+
+
+kapt {
+    correctErrorTypes true
 }
