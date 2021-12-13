@@ -27,4 +27,16 @@ class AuthRepositoryImpl @Inject constructor(private val firebase: FirebaseAuth)
             Resource.failure(AuthException(throwable))
         }
     }
+
+    override suspend fun getAuthenticateUser(): Resource<AuthUser> {
+        return try {
+            val authUser = firebase.currentUser!!.mapperToAuthUser()
+
+            Timber.d("Auth successful: %s", (authUser.email ?: authUser.id))
+            Resource.success(authUser)
+        } catch (throwable: FirebaseAuthException) {
+            Timber.e("Auth failure: %s", throwable.message)
+            Resource.failure(AuthException(throwable))
+        }
+    }
 }

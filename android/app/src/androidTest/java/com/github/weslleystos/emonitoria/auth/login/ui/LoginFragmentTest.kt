@@ -8,16 +8,22 @@ import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.github.weslleystos.emonitoria.R
+import com.github.weslleystos.emonitoria.data.auth.di.AuthModule
+import com.github.weslleystos.emonitoria.domain.auth.repository.AuthRepository
 import com.github.weslleystos.emonitoria.launchFragmentInHiltContainer
 import com.github.weslleystos.emonitoria.shared.util.EspressoIdlingResource
+import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import org.hamcrest.Matchers.not
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.com.github.weslleystos.emonitoria.FakeAuthRepository
 
+@UninstallModules(AuthModule::class)
 @HiltAndroidTest
 class LoginFragmentTest {
     @get:Rule
@@ -25,6 +31,9 @@ class LoginFragmentTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
+
+    @BindValue
+    val authRepository: AuthRepository = FakeAuthRepository()
 
     @Before
     fun setUp() {

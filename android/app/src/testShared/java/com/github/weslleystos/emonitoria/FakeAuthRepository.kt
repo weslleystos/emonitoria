@@ -5,8 +5,9 @@ import com.github.weslleystos.emonitoria.domain.auth.repository.AuthRepository
 import com.github.weslleystos.emonitoria.domain.shared.exceptions.AuthException
 import com.github.weslleystos.emonitoria.domain.shared.model.Resource
 import com.github.weslleystos.emonitoria.shared.util.*
+import javax.inject.Inject
 
-class FakeAuthRepository : AuthRepository {
+class FakeAuthRepository @Inject constructor() : AuthRepository {
     private val dataset = listOf(
         AuthUser(
             "123421", "token-123", "Test", "test@email.com", "Email", true, null
@@ -32,11 +33,11 @@ class FakeAuthRepository : AuthRepository {
             dataset.find { user -> user.email == email && password == "12345678" } == null ->
                 Resource.failure(AuthException("E-mail e/ou senha inválido"))
 
-            else -> Resource.success(
-                AuthUser(
-                    "123421", "token-123", "Test", email, "Email", true, null
-                )
-            )
+            else -> Resource.success(dataset[0])
         }
+    }
+
+    override suspend fun getAuthenticateUser(): Resource<AuthUser> {
+        return Resource.failure(AuthException("AuthUser not provided"))
     }
 }

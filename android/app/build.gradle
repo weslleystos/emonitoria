@@ -52,6 +52,7 @@ dependencies {
     // Base
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$compat_version"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
 
@@ -59,6 +60,8 @@ dependencies {
     implementation project(path: ':domain')
     // Used by hilt do inject dependencies.
     implementation project(path: ':data')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    androidTestImplementation project(path: ':data')
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
@@ -66,10 +69,10 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    androidTestImplementation project(path: ':data')
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodel_version"
@@ -87,6 +90,7 @@ dependencies {
 
     // Tests
     testImplementation "androidx.arch.core:core-testing:$arch_version"
+    implementation "androidx.test:core:$test_version"
     androidTestImplementation "androidx.test:core:$test_version"
     androidTestImplementation "androidx.arch.core:core-testing:$arch_version"
 
@@ -105,13 +109,12 @@ dependencies {
     androidTestImplementation "androidx.test.ext:truth:$test_version"
 
     // Espresso dependencies
-    androidTestImplementation "androidx.test.espresso:espresso-core:$expresso_version"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$expresso_version"
-//    androidTestImplementation "androidx.test.espresso:espresso-intents:$expresso_version"
-//    androidTestImplementation "androidx.test.espresso:espresso-accessibility:$expresso_version"
-//    androidTestImplementation "androidx.test.espresso:espresso-web:$expresso_version"
-//    androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$expresso_version"
-    implementation "androidx.test.espresso:espresso-idling-resource:$expresso_version"
+    //noinspection GradleDependency
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    //noinspection GradleDependency
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    //noinspection GradleDependency
+    implementation "androidx.test.espresso:espresso-idling-resource:$espresso_version"
 
     // Truth
     testImplementation "com.google.truth:truth:$truth_version"
@@ -119,9 +122,7 @@ dependencies {
 
     // Mockk
     testImplementation "io.mockk:mockk:$mockk_version"
-    //testImplementation "io.mockk:mockk-agent-jvm:$mockk_version"
     androidTestImplementation "io.mockk:mockk-android:$mockk_version"
-    //androidTestImplementation "io.mockk:mockk-agent-jvm:$mockk_version"
 
     // Turbine
     testImplementation "app.cash.turbine:turbine:$turbine_version"
