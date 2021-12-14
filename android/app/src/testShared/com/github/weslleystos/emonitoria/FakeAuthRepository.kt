@@ -1,8 +1,9 @@
-package java.com.github.weslleystos.emonitoria
+package com.github.weslleystos.emonitoria
 
 import com.github.weslleystos.emonitoria.domain.auth.model.AuthUser
 import com.github.weslleystos.emonitoria.domain.auth.repository.AuthRepository
 import com.github.weslleystos.emonitoria.domain.shared.exceptions.AuthException
+import com.github.weslleystos.emonitoria.domain.shared.exceptions.AuthInvalidUser
 import com.github.weslleystos.emonitoria.domain.shared.model.Resource
 import com.github.weslleystos.emonitoria.shared.util.*
 import javax.inject.Inject
@@ -39,5 +40,14 @@ class FakeAuthRepository @Inject constructor() : AuthRepository {
 
     override suspend fun getAuthenticateUser(): Resource<AuthUser> {
         return Resource.failure(AuthException("AuthUser not provided"))
+    }
+
+    override suspend fun recoveryPassword(email: String): Resource<Boolean> {
+        return when {
+            dataset.find { user -> user.email == email } == null ->
+                Resource.failure(AuthInvalidUser())
+
+            else -> Resource.success(true)
+        }
     }
 }
