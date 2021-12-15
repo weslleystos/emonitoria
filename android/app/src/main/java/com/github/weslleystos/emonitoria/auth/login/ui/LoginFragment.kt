@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle.State.STARTED
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.github.weslleystos.emonitoria.R
 import com.github.weslleystos.emonitoria.auth.login.vm.LoginViewModel
 import com.github.weslleystos.emonitoria.databinding.FragmentLoginBinding
@@ -18,8 +19,6 @@ import com.github.weslleystos.emonitoria.domain.shared.model.onFailure
 import com.github.weslleystos.emonitoria.domain.shared.model.onLoading
 import com.github.weslleystos.emonitoria.domain.shared.model.onSuccess
 import com.github.weslleystos.emonitoria.shared.util.*
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -42,17 +41,21 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.inputEmail.doAfterTextChanged { email ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = binding.run {
+        inputEmail.doAfterTextChanged { email ->
             loginViewModel.isValidEmail.set(validateEmail(email.toString()))
         }
 
-        binding.inputPassword.doAfterTextChanged { password ->
+        inputPassword.doAfterTextChanged { password ->
             loginViewModel.isValidPassWord.set(validatePassword(password.toString()))
         }
 
+        btnRecover.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.toRecoveryFragment())
+        }
+
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            repeatOnLifecycle(STARTED) {
                 loginViewModel.state.collect { result ->
                     result.run {
                         onLoading {
@@ -60,21 +63,13 @@ class LoginFragment : Fragment() {
                         }
 
                         onSuccess {
-                            Snackbar.make(binding.root, getString(R.string.success), LENGTH_SHORT)
-                                .show()
+                            // Todo("redirect to home screen")
+                            snackBar(R.string.success)
                         }
                         onFailure { exception ->
                             when (exception) {
-                                is AuthException -> {
-                                    Snackbar.make(
-                                        binding.root,
-                                        getString(R.string.invalid_login), LENGTH_SHORT
-                                    ).show()
-                                }
-                                else -> Snackbar.make(
-                                    binding.root,
-                                    getString(R.string.something_wrong), LENGTH_SHORT
-                                ).show()
+                                is AuthException -> snackBar(R.string.invalid_login)
+                                else -> snackBar(R.string.something_wrong)
                             }
                         }
                     }

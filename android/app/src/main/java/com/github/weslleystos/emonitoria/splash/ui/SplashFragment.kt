@@ -16,7 +16,6 @@ import com.github.weslleystos.emonitoria.domain.shared.model.onSuccess
 import com.github.weslleystos.emonitoria.shared.ui.BindingFragment
 import com.github.weslleystos.emonitoria.splash.vm.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -33,7 +32,6 @@ class SplashFragment : BindingFragment<FragmentSplashBinding>() {
         lifecycleScope.launch {
             repeatOnLifecycle(STARTED) {
                 splashViewModel.state.collect { result ->
-                    delay(2000)
                     result.run {
                         onSuccess { data ->
                             App.authUser = data

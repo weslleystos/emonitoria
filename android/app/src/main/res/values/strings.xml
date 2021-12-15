@@ -11,6 +11,7 @@
     <string name="welcome_instructions">Autentique-se para continuar.</string>
     <string name="forgot_password">Esqueceu a senha?</string>
     <string name="invalid_email">E-mail inválido!</string>
+    <string name="invalid_user">Usuário inválido!</string>
     <string name="required_field">* Campo obrigatório!</string>
     <string name="password_less_then">A senha deve ter pelo menos %d caracteres</string>
     <string name="password_more_then">A senha não deve exceder %d caracteres</string>
@@ -20,7 +21,13 @@
     <string name="invalid_login">E-mail e/ou senha inválido</string>
     <string name="something_wrong">Algo deu errado! tente novamente mais tarde.</string>
     <string name="success">Success</string>
+    <string name="email_sent">E-mail enviado</string>
     <string name="no_account">Não tem conta? Cadastre-se</string>
 
     <string name="logo_description">Logo do aplicativo</string>
+    <string name="recovery_instructions">Insira seu e-mail para resetar sua senha</string>
+
+
+    <string name="reset">Resetar</string>
+    <string name="sending">Enviando…</string>
 </resources>

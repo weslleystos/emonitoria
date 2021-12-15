@@ -6,12 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.github.weslleystos.emonitoria.domain.auth.model.AuthUser
 import com.github.weslleystos.emonitoria.domain.auth.usecase.LoginWithEmailAndPasswordUseCase
 import com.github.weslleystos.emonitoria.domain.shared.model.Resource
-import com.github.weslleystos.emonitoria.shared.util.EspressoIdlingResource
+import com.github.weslleystos.emonitoria.shared.util.loadingHandler
+import com.github.weslleystos.emonitoria.shared.util.wrapperIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,14 +27,12 @@ class LoginViewModel @Inject constructor(
     val isValidPassWord = ObservableBoolean(false)
     val isLoading = ObservableBoolean(false)
 
-    fun doLogin(_email: String, _password: String) = viewModelScope.launch(Dispatchers.IO) {
-        EspressoIdlingResource.increment()
-        _state.run {
-            emit(Resource.loading())
-            isLoading.set(true)
-            emit(loginWithEmailAndPassword(_email, _password))
-            isLoading.set(false)
-        }
-        EspressoIdlingResource.decrement()
+    fun wrapperDoLogin(_email: String, _password: String) = wrapperIdlingResource(viewModelScope) {
+        doLogin(_email, _password)
+    }
+
+    suspend fun doLogin(_email: String, _password: String) = loadingHandler(isLoading) {
+        _state.emit(loginWithEmailAndPassword(_email, _password))
     }
 }
+
