@@ -4,6 +4,7 @@ import com.github.weslleystos.emonitoria.data.auth.repository.AuthRepositoryImpl
 import com.github.weslleystos.emonitoria.domain.auth.repository.AuthRepository
 import com.github.weslleystos.emonitoria.domain.auth.usecase.GetAuthenticateUserUseCase
 import com.github.weslleystos.emonitoria.domain.auth.usecase.LoginWithEmailAndPasswordUseCase
+import com.github.weslleystos.emonitoria.domain.auth.usecase.RecoveryPasswordUseCase
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -14,6 +15,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AuthModule {
+    @Provides
+    @Singleton
+    fun providesRecoveryPasswordUserUseCase(authRepository: AuthRepository): RecoveryPasswordUseCase {
+        return RecoveryPasswordUseCase(authRepository)
+    }
+
     @Provides
     @Singleton
     fun providesGetAuthenticateUserUseCase(authRepository: AuthRepository): GetAuthenticateUserUseCase {

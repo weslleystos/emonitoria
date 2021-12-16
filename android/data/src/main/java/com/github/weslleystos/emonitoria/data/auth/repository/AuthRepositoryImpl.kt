@@ -4,9 +4,10 @@ import com.github.weslleystos.emonitoria.data.mappers.mapperToAuthUser
 import com.github.weslleystos.emonitoria.domain.auth.model.AuthUser
 import com.github.weslleystos.emonitoria.domain.auth.repository.AuthRepository
 import com.github.weslleystos.emonitoria.domain.shared.exceptions.AuthException
+import com.github.weslleystos.emonitoria.domain.shared.exceptions.AuthInvalidUser
 import com.github.weslleystos.emonitoria.domain.shared.model.Resource
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import javax.inject.Inject
@@ -22,7 +23,7 @@ class AuthRepositoryImpl @Inject constructor(private val firebase: FirebaseAuth)
 
             Timber.d("Auth successful: %s", (authUser.email ?: authUser.id))
             Resource.success(authUser)
-        } catch (throwable: FirebaseAuthException) {
+        } catch (throwable: Throwable) {
             Timber.e("Auth failure: %s", throwable.message)
             Resource.failure(AuthException(throwable))
         }
@@ -34,8 +35,24 @@ class AuthRepositoryImpl @Inject constructor(private val firebase: FirebaseAuth)
 
             Timber.d("Auth successful: %s", (authUser.email ?: authUser.id))
             Resource.success(authUser)
-        } catch (throwable: FirebaseAuthException) {
+        } catch (throwable: Throwable) {
             Timber.e("Auth failure: %s", throwable.message)
+            Resource.failure(AuthException(throwable))
+        }
+    }
+
+    override suspend fun recoveryPassword(email: String): Resource<Boolean> {
+        return try {
+            firebase.setLanguageCode("pt")
+            firebase.sendPasswordResetEmail(email).await()
+
+            Timber.d("Recovery email sent")
+            Resource.success(true)
+        } catch (invalidUserException: FirebaseAuthInvalidUserException) {
+            Timber.e("Send recovery email failed: %s", invalidUserException.message)
+            Resource.failure(AuthInvalidUser(invalidUserException))
+        } catch (throwable: Throwable) {
+            Timber.e("Send recovery email failed: %s", throwable.message)
             Resource.failure(AuthException(throwable))
         }
     }

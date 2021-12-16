@@ -7,4 +7,6 @@ interface AuthRepository {
     suspend fun loginWithEmailAndPassword(email: String, password: String): Resource<AuthUser>
 
     suspend fun getAuthenticateUser(): Resource<AuthUser>
+
+    suspend fun recoveryPassword(email: String): Resource<Boolean>
 }

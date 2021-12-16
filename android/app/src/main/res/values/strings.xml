@@ -27,7 +27,6 @@
     <string name="logo_description">Logo do aplicativo</string>
     <string name="recovery_instructions">Insira seu e-mail para resetar sua senha</string>
 
-
     <string name="reset">Resetar</string>
     <string name="sending">Enviando…</string>
 </resources>
