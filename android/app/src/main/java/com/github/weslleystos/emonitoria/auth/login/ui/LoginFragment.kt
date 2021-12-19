@@ -16,7 +16,7 @@ import com.github.weslleystos.emonitoria.auth.login.vm.LoginViewModel
 import com.github.weslleystos.emonitoria.databinding.FragmentLoginBinding
 import com.github.weslleystos.emonitoria.domain.shared.exceptions.AuthException
 import com.github.weslleystos.emonitoria.domain.shared.model.onFailure
-import com.github.weslleystos.emonitoria.domain.shared.model.onLoading
+import com.github.weslleystos.emonitoria.domain.shared.model.onStarting
 import com.github.weslleystos.emonitoria.domain.shared.model.onSuccess
 import com.github.weslleystos.emonitoria.shared.util.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,11 +54,15 @@ class LoginFragment : Fragment() {
             findNavController().navigate(LoginFragmentDirections.toRecoveryFragment())
         }
 
+        register.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.toRegisterFragment())
+        }
+
         lifecycleScope.launch {
             repeatOnLifecycle(STARTED) {
                 loginViewModel.state.collect { result ->
                     result.run {
-                        onLoading {
+                        onStarting {
                             hideKeyboard()
                         }
 

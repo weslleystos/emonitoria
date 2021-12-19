@@ -6,9 +6,9 @@ class Resource<T>(val state: State, val data: T? = null, val throwable: Throwabl
     companion object {
         fun <T> init(): Resource<T> = Resource(INIT)
 
-        fun <T> loading(): Resource<T> = Resource(LOADING)
+        fun <T> starting(): Resource<T> = Resource(START)
 
-        fun <T> loaded(): Resource<T> = Resource(LOADED)
+        fun <T> finished(): Resource<T> = Resource(FINISHED)
 
         fun <T> success(data: T): Resource<T> = Resource(SUCCESS, data)
 
@@ -20,12 +20,12 @@ enum class State {
     INIT,
     SUCCESS,
     FAILURE,
-    LOADING,
-    LOADED,
+    START,
+    FINISHED,
 }
 
-inline fun <T> Resource<T>.onLoading(action: () -> Unit): Resource<T> {
-    if (state == LOADING) action()
+inline fun <T> Resource<T>.onStarting(action: () -> Unit): Resource<T> {
+    if (state == START) action()
     return this
 }
 
@@ -39,7 +39,7 @@ inline fun <T> Resource<T>.onFailure(action: (Throwable) -> Unit): Resource<T> {
     return this
 }
 
-inline fun <T> Resource<T>.onLoaded(action: () -> Unit): Resource<T> {
-    if (state == LOADED) action()
+inline fun <T> Resource<T>.onFinished(action: () -> Unit): Resource<T> {
+    if (state == FINISHED) action()
     return this
 }

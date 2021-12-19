@@ -17,7 +17,7 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
     private val getAuthenticateUserUseCase: GetAuthenticateUserUseCase
 ) : ViewModel(), DefaultLifecycleObserver {
-    private val _state = MutableStateFlow<Resource<AuthUser>>(Resource.loading())
+    private val _state = MutableStateFlow<Resource<AuthUser>>(Resource.starting())
     val state: StateFlow<Resource<AuthUser>> = _state
 
     override fun onCreate(owner: LifecycleOwner) {
