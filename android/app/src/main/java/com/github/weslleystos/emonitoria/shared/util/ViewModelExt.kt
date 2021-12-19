@@ -9,7 +9,7 @@ import kotlinx.coroutines.*
  */
 inline fun wrapperIdlingResource(
     coroutineScope: CoroutineScope,
-    dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    dispatcher: CoroutineDispatcher = Dispatchers.Default,
     crossinline action: suspend () -> Unit
 ) = coroutineScope.launch(dispatcher) {
     EspressoIdlingResource.increment()

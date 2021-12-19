@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">E-Monitoria</string>
     <string name="password">Senha</string>
+    <string name="confirm_password">Confirmar Senha</string>
+    <string name="name">Nome</string>
     <string name="email">E-mail</string>
     <string name="login">Entrar</string>
     <string name="login2">Entrando…</string>
@@ -12,9 +14,12 @@
     <string name="forgot_password">Esqueceu a senha?</string>
     <string name="invalid_email">E-mail inválido!</string>
     <string name="invalid_user">Usuário inválido!</string>
+    <string name="registered_user">Usuário já tem cadastro!</string>
     <string name="required_field">* Campo obrigatório!</string>
     <string name="password_less_then">A senha deve ter pelo menos %d caracteres</string>
+    <string name="name_less_than">O nome deve ter pelo menos %d caracteres</string>
     <string name="password_more_then">A senha não deve exceder %d caracteres</string>
+    <string name="passwords_different">As senhas são diferentes</string>
     <string name="register">Cadastrar-se</string>
     <string name="already_account">Já tem conta?</string>
     <string name="dont_have_account">Não tem conta?</string>

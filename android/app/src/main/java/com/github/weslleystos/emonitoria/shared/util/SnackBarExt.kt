@@ -46,7 +46,12 @@ fun Snackbar.action(action: String, color: Int? = null, listener: (View) -> Unit
 
 fun Snackbar.onDismissed(action: (event: Int) -> Unit) {
     addCallback(object : Snackbar.Callback() {
+        override fun onShown(sb: Snackbar?) {
+            EspressoIdlingResource.increment()
+        }
+
         override fun onDismissed(snackbar: Snackbar?, event: Int) {
+            EspressoIdlingResource.decrement()
             action(event)
         }
     })

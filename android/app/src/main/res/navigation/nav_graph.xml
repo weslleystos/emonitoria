@@ -36,6 +36,14 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_right" />
+
+        <action
+            android:id="@+id/toRegisterFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_right" />
     </fragment>
 
     <fragment
@@ -48,5 +56,20 @@
         android:id="@+id/recoveryFragment"
         android:name="com.github.weslleystos.emonitoria.auth.recovery.ui.RecoveryFragment"
         tools:layout="@layout/fragment_recovery" />
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.github.weslleystos.emonitoria.auth.register.ui.RegisterFragment"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/toHomeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_right"
+            app:popUpTo="@+id/registerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>
