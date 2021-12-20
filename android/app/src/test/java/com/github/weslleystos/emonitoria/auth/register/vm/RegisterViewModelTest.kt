@@ -2,7 +2,7 @@ package com.github.weslleystos.emonitoria.auth.register.vm
 
 import app.cash.turbine.test
 import com.github.weslleystos.emonitoria.FakeAuthRepository
-import com.github.weslleystos.emonitoria.MainCoroutineRule
+import com.github.weslleystos.emonitoria.TestDispatchers
 import com.github.weslleystos.emonitoria.domain.auth.model.AuthUser
 import com.github.weslleystos.emonitoria.domain.auth.usecase.RegisterUseCase
 import com.github.weslleystos.emonitoria.domain.auth.usecase.UpdateProfileUseCase
@@ -10,6 +10,7 @@ import com.github.weslleystos.emonitoria.domain.shared.exceptions.RegisterExcept
 import com.github.weslleystos.emonitoria.domain.shared.model.Resource
 import com.github.weslleystos.emonitoria.domain.shared.model.State.FAILURE
 import com.github.weslleystos.emonitoria.domain.shared.model.State.SUCCESS
+import com.github.weslleystos.emonitoria.shared.util.EspressoCounterIdlingResource
 import com.google.common.truth.Truth.assertThat
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -17,19 +18,18 @@ import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class RegisterViewModelTest {
-    @get:Rule
-    val mainCoroutine = MainCoroutineRule()
-
     @RelaxedMockK
     lateinit var updateProfileUseCase: UpdateProfileUseCase
 
     @RelaxedMockK
     lateinit var authUser: AuthUser
+
+    @RelaxedMockK
+    lateinit var counterIdlingResource: EspressoCounterIdlingResource
 
     private lateinit var viewModelTest: RegisterViewModel
 
@@ -37,7 +37,9 @@ class RegisterViewModelTest {
     fun setUp() {
         MockKAnnotations.init(this)
         viewModelTest = RegisterViewModel(
-            RegisterUseCase(updateProfileUseCase, FakeAuthRepository())
+            RegisterUseCase(updateProfileUseCase, FakeAuthRepository()),
+            counterIdlingResource,
+            TestDispatchers()
         )
     }
 

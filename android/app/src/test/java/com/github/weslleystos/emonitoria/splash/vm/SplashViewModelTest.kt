@@ -1,7 +1,8 @@
 package com.github.weslleystos.emonitoria.splash.vm
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
+import com.github.weslleystos.emonitoria.TestCounterIdlingResource
+import com.github.weslleystos.emonitoria.TestDispatchers
 import com.github.weslleystos.emonitoria.domain.auth.model.AuthUser
 import com.github.weslleystos.emonitoria.domain.auth.repository.AuthRepository
 import com.github.weslleystos.emonitoria.domain.auth.usecase.GetAuthenticateUserUseCase
@@ -15,14 +16,10 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class SplashViewModelTest {
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
-
     @MockK
     lateinit var authRepository: AuthRepository
 
@@ -34,7 +31,11 @@ class SplashViewModelTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        viewModel = SplashViewModel(GetAuthenticateUserUseCase(authRepository))
+        viewModel = SplashViewModel(
+            GetAuthenticateUserUseCase(authRepository),
+            TestCounterIdlingResource(),
+            TestDispatchers()
+        )
     }
 
 

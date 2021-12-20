@@ -91,7 +91,7 @@
                 android:imeOptions="actionDone"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:onClick="@{() ->  viewModel.wrapperDoRecovery(viewModel.email)}"
+                android:onClick="@{() ->  viewModel.doRecovery(viewModel.email)}"
                 android:text="@{!viewModel.isLoading ? @string/reset : @string/sending}"
                 android:textAllCaps="false"
                 app:cornerRadius="10dp"

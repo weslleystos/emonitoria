@@ -1,17 +1,19 @@
 package com.github.weslleystos.emonitoria.auth.login.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.navigation.testing.TestNavHostController
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import com.github.weslleystos.emonitoria.EspressoIdlingResourceRule
 import com.github.weslleystos.emonitoria.FakeAuthRepository
 import com.github.weslleystos.emonitoria.R
 import com.github.weslleystos.emonitoria.data.auth.di.AuthModule
 import com.github.weslleystos.emonitoria.domain.auth.repository.AuthRepository
 import com.github.weslleystos.emonitoria.launchFragmentInHiltContainer
+import com.github.weslleystos.emonitoria.util.EspressoIdlingResourceRule
+import com.google.common.truth.Truth
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -20,6 +22,7 @@ import org.hamcrest.Matchers.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import javax.inject.Inject
 
 @UninstallModules(AuthModule::class)
 @HiltAndroidTest
@@ -31,10 +34,13 @@ class LoginFragmentTest {
     val rule = InstantTaskExecutorRule()
 
     @get:Rule
-    val idlingResourceRule = EspressoIdlingResourceRule()
+    val idlingResource = EspressoIdlingResourceRule()
 
     @BindValue
     val authRepository: AuthRepository = FakeAuthRepository()
+
+    @Inject
+    lateinit var navController: TestNavHostController
 
     @Before
     fun setUp() {
@@ -43,7 +49,7 @@ class LoginFragmentTest {
 
     @Test
     fun should_be_successful_login_with_valid_email_and_password() {
-        launchFragmentInHiltContainer<LoginFragment>()
+        launchFragmentInHiltContainer<LoginFragment>(navController)
 
         onView(withId(R.id.input_email)).perform(typeText("test@email.com"))
 
@@ -51,8 +57,7 @@ class LoginFragmentTest {
 
         onView(withId(R.id.btn_sign_in)).perform(click())
 
-        onView(withId(com.google.android.material.R.id.snackbar_text))
-            .check(matches(withText("Success")))
+        Truth.assertThat(navController.currentDestination?.id).isEqualTo(R.id.homeFragment)
     }
 
     @Test

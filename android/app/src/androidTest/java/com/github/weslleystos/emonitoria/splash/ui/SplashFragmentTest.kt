@@ -2,7 +2,6 @@ package com.github.weslleystos.emonitoria.splash.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.testing.TestNavHostController
-import com.github.weslleystos.emonitoria.EspressoIdlingResourceRule
 import com.github.weslleystos.emonitoria.R
 import com.github.weslleystos.emonitoria.data.auth.di.AuthModule
 import com.github.weslleystos.emonitoria.domain.auth.model.AuthUser
@@ -10,6 +9,7 @@ import com.github.weslleystos.emonitoria.domain.auth.repository.AuthRepository
 import com.github.weslleystos.emonitoria.domain.shared.exceptions.AuthException
 import com.github.weslleystos.emonitoria.domain.shared.model.Resource
 import com.github.weslleystos.emonitoria.launchFragmentInHiltContainer
+import com.github.weslleystos.emonitoria.util.EspressoIdlingResourceRule
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule

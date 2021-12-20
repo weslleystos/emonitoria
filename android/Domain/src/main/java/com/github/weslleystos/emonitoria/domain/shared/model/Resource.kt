@@ -4,8 +4,6 @@ import com.github.weslleystos.emonitoria.domain.shared.model.State.*
 
 class Resource<T>(val state: State, val data: T? = null, val throwable: Throwable? = null) {
     companion object {
-        fun <T> init(): Resource<T> = Resource(INIT)
-
         fun <T> starting(): Resource<T> = Resource(START)
 
         fun <T> finished(): Resource<T> = Resource(FINISHED)
@@ -17,7 +15,6 @@ class Resource<T>(val state: State, val data: T? = null, val throwable: Throwabl
 }
 
 enum class State {
-    INIT,
     SUCCESS,
     FAILURE,
     START,

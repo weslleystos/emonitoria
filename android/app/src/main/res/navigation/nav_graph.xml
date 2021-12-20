@@ -44,6 +44,16 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_right" />
+
+        <action
+            android:id="@+id/toHomeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_right"
+            app:popUpTo="@+id/signInFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

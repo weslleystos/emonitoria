@@ -44,14 +44,17 @@ fun Snackbar.action(action: String, color: Int? = null, listener: (View) -> Unit
     color?.let { setActionTextColor(ContextCompat.getColor(context, color)) }
 }
 
-fun Snackbar.onDismissed(action: (event: Int) -> Unit) {
+fun Snackbar.onDismissed(
+    counterIdlingResource: EspressoCounterIdlingResource? = null,
+    action: (event: Int) -> Unit
+) {
     addCallback(object : Snackbar.Callback() {
         override fun onShown(sb: Snackbar?) {
-            EspressoIdlingResource.increment()
+            counterIdlingResource?.increment()
         }
 
         override fun onDismissed(snackbar: Snackbar?, event: Int) {
-            EspressoIdlingResource.decrement()
+            counterIdlingResource?.decrement()
             action(event)
         }
     })

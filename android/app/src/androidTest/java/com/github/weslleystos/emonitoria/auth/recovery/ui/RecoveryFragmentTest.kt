@@ -8,12 +8,12 @@ import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import com.github.weslleystos.emonitoria.EspressoIdlingResourceRule
 import com.github.weslleystos.emonitoria.FakeAuthRepository
 import com.github.weslleystos.emonitoria.R
 import com.github.weslleystos.emonitoria.data.auth.di.AuthModule
 import com.github.weslleystos.emonitoria.domain.auth.repository.AuthRepository
 import com.github.weslleystos.emonitoria.launchFragmentInHiltContainer
+import com.github.weslleystos.emonitoria.util.EspressoIdlingResourceRule
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest

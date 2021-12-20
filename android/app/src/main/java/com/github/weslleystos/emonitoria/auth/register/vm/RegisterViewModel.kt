@@ -6,16 +6,21 @@ import androidx.lifecycle.viewModelScope
 import com.github.weslleystos.emonitoria.domain.auth.model.AuthUser
 import com.github.weslleystos.emonitoria.domain.auth.usecase.RegisterUseCase
 import com.github.weslleystos.emonitoria.domain.shared.model.Resource
-import com.github.weslleystos.emonitoria.shared.util.loadingHandler
-import com.github.weslleystos.emonitoria.shared.util.wrapperIdlingResource
+import com.github.weslleystos.emonitoria.shared.util.DispatcherProvider
+import com.github.weslleystos.emonitoria.shared.util.EspressoCounterIdlingResource
+import com.github.weslleystos.emonitoria.shared.util.on
+import com.github.weslleystos.emonitoria.shared.util.wrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val registerUseCase: RegisterUseCase
+    private val registerUseCase: RegisterUseCase,
+    private val idlingResource: EspressoCounterIdlingResource,
+    private val dispatchers: DispatcherProvider,
 ) : ViewModel() {
     private val _state = MutableStateFlow<Resource<AuthUser>>(Resource.starting())
     val state: StateFlow<Resource<AuthUser>> = _state
@@ -30,19 +35,15 @@ class RegisterViewModel @Inject constructor(
     val isValidConfirmPassWord = ObservableBoolean(false)
     val isLoading = ObservableBoolean(false)
 
-    fun wrapperDoRegister(
+    fun doRegister(
         _name: String,
         _email: String,
         _password: String
-    ) = wrapperIdlingResource(viewModelScope) {
-        doRegister(_name, _email, _password)
-    }
-
-    suspend fun doRegister(
-        _name: String,
-        _email: String,
-        _password: String
-    ) = loadingHandler(isLoading) {
-        _state.emit(registerUseCase(_name, _email, _password))
+    ) = viewModelScope.launch(dispatchers.default) {
+        idlingResource.wrapper {
+            isLoading.on {
+                _state.emit(registerUseCase(_name, _email, _password))
+            }
+        }
     }
 }

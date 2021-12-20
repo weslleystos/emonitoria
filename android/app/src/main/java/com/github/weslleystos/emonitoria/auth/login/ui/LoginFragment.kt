@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle.State.STARTED
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.github.weslleystos.emonitoria.App
 import com.github.weslleystos.emonitoria.R
 import com.github.weslleystos.emonitoria.auth.login.vm.LoginViewModel
 import com.github.weslleystos.emonitoria.databinding.FragmentLoginBinding
@@ -22,11 +23,15 @@ import com.github.weslleystos.emonitoria.shared.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var idlingResource: EspressoCounterIdlingResource
 
     private val loginViewModel: LoginViewModel by viewModels()
 
@@ -67,8 +72,12 @@ class LoginFragment : Fragment() {
                         }
 
                         onSuccess {
-                            // Todo("redirect to home screen")
-                            snackBar(R.string.success)
+                            App.authUser = it
+                            snackBar(R.string.success) {
+                                onDismissed(idlingResource) {
+                                    findNavController().navigate(LoginFragmentDirections.toHomeFragment())
+                                }
+                            }
                         }
                         onFailure { exception ->
                             when (exception) {

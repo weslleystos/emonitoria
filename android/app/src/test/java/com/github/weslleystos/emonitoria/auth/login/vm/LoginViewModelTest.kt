@@ -1,8 +1,9 @@
 package com.github.weslleystos.emonitoria.auth.login.vm
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
 import com.github.weslleystos.emonitoria.FakeAuthRepository
+import com.github.weslleystos.emonitoria.TestCounterIdlingResource
+import com.github.weslleystos.emonitoria.TestDispatchers
 import com.github.weslleystos.emonitoria.domain.auth.usecase.LoginWithEmailAndPasswordUseCase
 import com.github.weslleystos.emonitoria.domain.shared.model.State.FAILURE
 import com.github.weslleystos.emonitoria.domain.shared.model.State.SUCCESS
@@ -10,19 +11,19 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class LoginViewModelTest {
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
-
     private lateinit var viewModel: LoginViewModel
 
     @Before
     fun setUp() {
-        viewModel = LoginViewModel(LoginWithEmailAndPasswordUseCase(FakeAuthRepository()))
+        viewModel = LoginViewModel(
+            LoginWithEmailAndPasswordUseCase(FakeAuthRepository()),
+            TestCounterIdlingResource(),
+            TestDispatchers()
+        )
     }
 
     @Test
@@ -48,7 +49,8 @@ class LoginViewModelTest {
         viewModel.doLogin("test2@email.com", "12345678")
 
         viewModel.state.test {
-            assertThat(awaitItem().state).isEqualTo(FAILURE)
+            val item = awaitItem()
+            assertThat(item.state).isEqualTo(FAILURE)
         }
     }
 }

@@ -126,7 +126,7 @@
             android:imeOptions="actionDone"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:onClick="@{() ->  viewModel.wrapperDoLogin(viewModel.email, viewModel.password)}"
+            android:onClick="@{() ->  viewModel.doLogin(viewModel.email, viewModel.password)}"
             android:text="@{!viewModel.isLoading ? @string/login : @string/login2}"
             android:textAllCaps="false"
             app:cornerRadius="10dp"

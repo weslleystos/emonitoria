@@ -18,11 +18,15 @@ import com.github.weslleystos.emonitoria.domain.shared.model.onFailure
 import com.github.weslleystos.emonitoria.domain.shared.model.onSuccess
 import com.github.weslleystos.emonitoria.shared.util.*
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var counterIdlingResource: EspressoCounterIdlingResource
 
     private val registerViewModel by viewModels<RegisterViewModel>()
 
@@ -78,7 +82,7 @@ class RegisterFragment : Fragment() {
                 onSuccess {
                     App.authUser = it
                     snackBar(R.string.success) {
-                        onDismissed {
+                        onDismissed(counterIdlingResource) {
                             navController.navigate(RegisterFragmentDirections.toHomeFragment())
                         }
                     }
