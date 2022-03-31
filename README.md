@@ -1,3 +1,4 @@
 # E-Monitoria
 
-Considere olhar as branchs, cada uma delas significa uma tecnologia, usada para estudos como também para continuação do projeto.
+Projeto que visa melhorar o sistema de monitoria atual das universidade deixando ele mais demócratico,
+permitindo o acesso a todos alunos.
