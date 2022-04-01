@@ -1,6 +1,7 @@
 object Versions {
     const val gradle = "7.1.2"
     const val kotlin = "1.6.10"
+    const val androidDesugar = "1.1.5"
 
     const val androidXCoreKTX = "1.7.0"
     const val compose = "1.1.1"

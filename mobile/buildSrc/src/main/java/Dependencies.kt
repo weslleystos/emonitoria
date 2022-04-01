@@ -1,5 +1,6 @@
 object Dependencies {
     const val androidXCoreKTX = "androidx.core:core-ktx:${Versions.androidXCoreKTX}"
+    const val androidDesugar = "com.android.tools:desugar_jdk_libs:${Versions.androidDesugar}"
     const val composeUI = "androidx.compose.ui:ui:${Versions.compose}"
     const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
     const val composePreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
