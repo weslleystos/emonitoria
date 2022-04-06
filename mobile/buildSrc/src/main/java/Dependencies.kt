@@ -3,7 +3,7 @@ object Dependencies {
     const val androidDesugar = "com.android.tools:desugar_jdk_libs:${Versions.androidDesugar}"
     const val composeUI = "androidx.compose.ui:ui:${Versions.compose}"
     const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
-    const val composePreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
+    const val composePreview = "androidx.compose.ui:ui-tooling:${Versions.compose}"
     const val activityCompose = "androidx.activity:activity-compose:${Versions.activityCompose}"
     const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
 
