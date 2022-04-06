@@ -2,7 +2,10 @@ package com.github.weslleystos.emonitoria.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val LightGreen = Color(0xFF5AF097)
+val Green = Color(0xFF00BC68)
+val DarkGreen = Color(0xFF008A3C)
+
+val TextLightGray = Color(0xFFE0E0E0)
+val TextGray = Color(0xFF9E9E9E)
+val TextDarkGray = Color(0xFF616161)
