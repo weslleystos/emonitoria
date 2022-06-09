@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">E-Monitoria</string>
+    <string name="ic_email_description">Icone de e-mail</string>
+    <string name="email">E-mail</string>
+    <string name="ic_lock_description">Icone de um cadeado</string>
+    <string name="password">Senha</string>
 </resources>

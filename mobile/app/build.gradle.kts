@@ -62,9 +62,11 @@ dependencies {
 
     implementation(Dependencies.androidXCoreKTX)
     implementation(Dependencies.composeUI)
+    implementation(Dependencies.composeMaterial3)
     implementation(Dependencies.composeMaterial)
     implementation(Dependencies.composePreview)
     implementation(Dependencies.activityCompose)
+    implementation(Dependencies.navigationCompose)
     implementation(Dependencies.lifecycleRuntime)
 
     testImplementation(Dependencies.jUnit)

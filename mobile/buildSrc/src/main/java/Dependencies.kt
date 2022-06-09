@@ -2,9 +2,11 @@ object Dependencies {
     const val androidXCoreKTX = "androidx.core:core-ktx:${Versions.androidXCoreKTX}"
     const val androidDesugar = "com.android.tools:desugar_jdk_libs:${Versions.androidDesugar}"
     const val composeUI = "androidx.compose.ui:ui:${Versions.compose}"
+    const val composeMaterial3 = "androidx.compose.material3:material3:${Versions.material3}"
     const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
     const val composePreview = "androidx.compose.ui:ui-tooling:${Versions.compose}"
     const val activityCompose = "androidx.activity:activity-compose:${Versions.activityCompose}"
+    const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
     const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
 
     const val jUnit = "junit:junit:${Versions.jUnit}"
