@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "E-Monitoria"
-include ':app'
+include(":app")
