@@ -1,17 +1,31 @@
+import Dependencies.ActivityCompose
+import Dependencies.ComposeJUnitTest
+import Dependencies.ComposeMaterial
+import Dependencies.ComposePreview
+import Dependencies.ComposeTestManifest
+import Dependencies.ComposeTooling
+import Dependencies.ComposeUI
+import Dependencies.CoreKTX
+import Dependencies.Espresso
+import Dependencies.JUnit
+import Dependencies.JUnitExtension
+import Dependencies.LifecycleRuntimeKTX
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
 
 android {
-    compileSdk = 32
+    compileSdk = BuildConfig.compileSdk
 
     defaultConfig {
-        applicationId = "com.github.weslleystos.emonitoria"
-        minSdk = 21
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = AppConfig.applicationId
+        versionCode = AppConfig.versionCode
+        versionName = AppConfig.versionName
+
+        minSdk = BuildConfig.minSdk
+        targetSdk = BuildConfig.targetSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -43,7 +57,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = rootProject.extra["compose_version"] as String
+        kotlinCompilerExtensionVersion = Versions.composeVersion
     }
 
     packagingOptions {
@@ -52,18 +66,26 @@ android {
 }
 
 dependencies {
-    val composeVersion = rootProject.extra["compose_version"]
+    implementation(CoreKTX)
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.activity:activity-compose:1.3.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:$composeVersion")
+    // Compose
+    implementation(ComposeUI)
+    implementation(ComposeMaterial)
+    implementation(ComposePreview)
+    implementation(ActivityCompose)
+
+    // Lifecycle
+    implementation(LifecycleRuntimeKTX)
+
+    // Unit Test
+    testImplementation(JUnit)
+
+    // UI Test
+    androidTestImplementation(Espresso)
+    androidTestImplementation(ComposeJUnitTest)
+    androidTestImplementation(JUnitExtension)
+
+    // Debug
+    debugImplementation(ComposeTooling)
+    debugImplementation(ComposeTestManifest)
 }
