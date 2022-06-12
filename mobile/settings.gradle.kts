@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "E-Monitoria"
 include(":app")
 include(":domain")
+include(":data")
