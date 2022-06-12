@@ -7,13 +7,17 @@ import Dependencies.ComposeTooling
 import Dependencies.ComposeUI
 import Dependencies.CoreKTX
 import Dependencies.Espresso
+import Dependencies.Hilt
+import Dependencies.HiltCompiler
 import Dependencies.JUnit
 import Dependencies.JUnitExtension
 import Dependencies.LifecycleRuntimeKTX
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -88,4 +92,12 @@ dependencies {
     // Debug
     debugImplementation(ComposeTooling)
     debugImplementation(ComposeTestManifest)
+
+    // Hilt
+    implementation(Hilt)
+    kapt(HiltCompiler)
+}
+
+kapt {
+    correctErrorTypes = true
 }

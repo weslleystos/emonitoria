@@ -1,3 +1,6 @@
+import Dependencies.Dagger
+import Dependencies.DaggerCompiler
+
 plugins {
     id("kotlin")
     kotlin("kapt")
@@ -8,4 +11,8 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-dependencies { }
+dependencies {
+    // Dagger
+    implementation(Dagger)
+    kapt(DaggerCompiler)
+}

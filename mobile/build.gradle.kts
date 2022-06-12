@@ -4,6 +4,12 @@ plugins {
     id("org.jetbrains.kotlin.android") version Versions.kotlinVersion apply false
 }
 
+buildscript {
+    dependencies {
+        classpath(Dependencies.HiltPlugin)
+    }
+}
+
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
