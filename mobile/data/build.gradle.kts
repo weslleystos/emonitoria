@@ -1,5 +1,7 @@
 import Dependencies.CoreKTX
 import Dependencies.CoroutineAndroid
+import Dependencies.Firebase
+import Dependencies.FirebaseAuth
 import Dependencies.Hilt
 import Dependencies.HiltCompiler
 
@@ -8,6 +10,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -53,4 +56,8 @@ dependencies {
     // Hilt
     implementation(Hilt)
     kapt(HiltCompiler)
+
+    // Firebase
+    implementation(platform(Firebase))
+    implementation(FirebaseAuth)
 }

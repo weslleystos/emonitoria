@@ -5,6 +5,8 @@ import Versions.coreKTXVersion
 import Versions.coroutineVersion
 import Versions.daggerVersion
 import Versions.espressoVersion
+import Versions.firebaseVersion
+import Versions.googleServicesVersion
 import Versions.hiltVersion
 import Versions.junitVersion
 import Versions.lifecycleRuntimeKTXVersion
@@ -43,4 +45,10 @@ object Dependencies {
     const val Dagger = "com.google.dagger:dagger:$daggerVersion"
     const val DaggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
 
+    // Google Services
+    const val GoogleServices = "com.google.gms:google-services:$googleServicesVersion"
+
+    // Firebase
+    const val Firebase = "com.google.firebase:firebase-bom:$firebaseVersion"
+    const val FirebaseAuth = "com.google.firebase:firebase-auth"
 }

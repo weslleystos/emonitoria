@@ -7,6 +7,7 @@ plugins {
 buildscript {
     dependencies {
         classpath(Dependencies.HiltPlugin)
+        classpath(Dependencies.GoogleServices)
     }
 }
 

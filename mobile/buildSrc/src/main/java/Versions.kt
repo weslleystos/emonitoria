@@ -11,4 +11,6 @@ object Versions {
     const val hiltVersion = "2.38.1"
     const val daggerVersion = "2.42"
     const val coroutineVersion = "1.6.2"
+    const val googleServicesVersion = "4.3.10"
+    const val firebaseVersion = "30.1.0"
 }
