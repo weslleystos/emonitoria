@@ -2,6 +2,7 @@ import Versions.activityComposeVersion
 import Versions.androidXTestVersion
 import Versions.composeVersion
 import Versions.coreKTXVersion
+import Versions.coroutineVersion
 import Versions.daggerVersion
 import Versions.espressoVersion
 import Versions.hiltVersion
@@ -10,6 +11,8 @@ import Versions.lifecycleRuntimeKTXVersion
 
 object Dependencies {
     const val CoreKTX = "androidx.core:core-ktx:$coreKTXVersion"
+    const val CoroutineAndroid =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
 
     // Compose
     const val ComposeUI = "androidx.compose.ui:ui:$composeVersion"

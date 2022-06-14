@@ -10,4 +10,5 @@ object Versions {
     const val espressoVersion = "3.4.0"
     const val hiltVersion = "2.38.1"
     const val daggerVersion = "2.42"
+    const val coroutineVersion = "1.6.2"
 }

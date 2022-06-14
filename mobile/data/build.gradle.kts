@@ -1,3 +1,5 @@
+import Dependencies.CoreKTX
+import Dependencies.CoroutineAndroid
 import Dependencies.Hilt
 import Dependencies.HiltCompiler
 
@@ -34,12 +36,20 @@ android {
         targetCompatibility(JavaVersion.VERSION_11)
     }
 
+    packagingOptions {
+        resources.excludes += "DebugProbesKt.bin"
+    }
+
     kotlinOptions {
         jvmTarget = "11"
     }
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(CoreKTX)
+    implementation(CoroutineAndroid)
+
     // Hilt
     implementation(Hilt)
     kapt(HiltCompiler)
